@@ -20,7 +20,7 @@ import (
     "github.com/mattn/go-gtk/gdk"
     "github.com/mattn/go-gtk/gtk"
     "github.com/mattn/go-gtk/glib"
-    "github.com/javyre/jamyxgo2"
+    "github.com/Snowlabs/jamyxgo"
 )
 
 
