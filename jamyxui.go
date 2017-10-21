@@ -24,7 +24,7 @@ import (
 )
 
 
-func interactiveLoop(target *jamyxgo2.Target) {
+func interactiveLoop(target *jamyxgo.Target) {
     reader := bufio.NewReader(os.Stdin)
     for {
         fmt.Print("Command: ")
@@ -160,12 +160,12 @@ func gtkNewMeter(isStereo, isMono bool, meterValues [](*float32)) *gtkMeter {
 
 type monitorButton struct {
     GtkButton *gtk.ToggleButton
-    Port *jamyxgo2.Port
+    Port *jamyxgo.Port
     CallId int
 }
 
 var g_mon_butts = [](*monitorButton){}
-func monitorButtonCB(mon_butt *monitorButton, target *jamyxgo2.Target) {
+func monitorButtonCB(mon_butt *monitorButton, target *jamyxgo.Target) {
 
     for _, mb := range g_mon_butts {
         mb.GtkButton.HandlerBlock(mb.CallId)
@@ -179,8 +179,8 @@ func monitorButtonCB(mon_butt *monitorButton, target *jamyxgo2.Target) {
     mon_butt.Port.SetMonitored()
 }
 
-func channelWidget(port *jamyxgo2.Port,
-                   target *jamyxgo2.Target,
+func channelWidget(port *jamyxgo.Port,
+                   target *jamyxgo.Target,
                    jclient **jack.Client,
                ) (widget *gtk.VBox, meter *Meter) {
 
@@ -326,7 +326,7 @@ func jackProcess(nframes uint32) int {
     return 0
 }
 
-func windowWidget(target *jamyxgo2.Target, jclient **jack.Client) gtk.IWidget {
+func windowWidget(target *jamyxgo.Target, jclient **jack.Client) gtk.IWidget {
     hbox := gtk.NewHBox(false, 0)
 
     all_ports := target.GetPorts()
@@ -371,7 +371,7 @@ func windowWidget(target *jamyxgo2.Target, jclient **jack.Client) gtk.IWidget {
     return hbox
 }
 
-func setupWindow(target *jamyxgo2.Target, jclient **jack.Client) {
+func setupWindow(target *jamyxgo.Target, jclient **jack.Client) {
     gdk.ThreadsInit()
     gtk.Init(nil)
     window := gtk.NewWindow(gtk.WINDOW_TOPLEVEL)
@@ -422,7 +422,7 @@ func setupWindow(target *jamyxgo2.Target, jclient **jack.Client) {
 }
 
 var isClientAlive bool = false
-func setupJack(target *jamyxgo2.Target) **jack.Client {
+func setupJack(target *jamyxgo.Target) **jack.Client {
     var jclient **jack.Client = new(*jack.Client)
 
     setup := func () {
@@ -458,7 +458,7 @@ func setupJack(target *jamyxgo2.Target) **jack.Client {
 }
 
 func main() {
-    target:= jamyxgo2.NewTarget("127.0.0.1", 56065)
+    target:= jamyxgo.NewTarget("127.0.0.1", 56065)
 
     go interactiveLoop(target)
 
